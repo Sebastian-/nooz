@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.sebastianmurgu.nooz.network.Article
 import com.sebastianmurgu.nooz.network.NewsAPI
 import kotlinx.android.synthetic.main.activity_main.*
@@ -52,6 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
             val article = articles[position]
+
+            article.media.firstOrNull()?.mediaMetadata?.firstOrNull()?.url.let {
+                Glide.with(context).load(it).into(holder.itemView.article_image)
+            }
 
             holder.itemView.article_title.text = article.title
         }
